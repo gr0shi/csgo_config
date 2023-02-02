@@ -1,96 +1,99 @@
 /* nadetraining.nut
- *
- * скинуть в /csgo/scripts/vscripts/
- *
- * Введите в консоли:
- *  script_execute nadetraining
- *	script fSetup()
- * 	bind "любая кнопка" "script fSave()"
- *	bind "другая любая кнопка" "script pScript()"
- * Нажмите первую кнопку, для сохранения траектории полета.
- * Чтобы остановить скрипт нажмите на вторую кнопку.
+ * Nade Training Script
+ * by S0lll0s, Bidj, Rurre and Mellet
+ * USAGE:
+ *      script_execute nadetraining
+ *	script nadeSetup()
+ * 	bind "rctrl" "script nadeSavePos()"
+ *	bind "ralt" "script nadePause()"
+ * Press the key (right ctrl in this case) before every nade you want save, all following nades will fly the same path
+ * regardless of how you throw them. To pause the script and throw nades freely use the other bind (right alt in this case).
  */
 
 this.nadePos		<- null;
 this.nadeVel		<- null;
 this.nadeSaveMode	<- true;
 this.nadeLastNade	<- null;
-this.isPaused 		<- false;
+this.nadeIsPaused	<- false;
 
-printl( @"Скрипт включен" );
-printl( @"Введите в консоле: script fSetup()" );
+function nadeSetup() {
+	printl( @"[NT] nadetraining.nut" );
+	printl( @"[NT] Nade Training Script" );
+	printl( @"[NT] by S0lll0s, Bidj, Rurre and Mellet" );
+	printl( @"[NT] USAGE:" );
+	printl( @"[NT] 	 bind ""ralt"" ""script nadeSavePos()""" );
+	printl( @"[NT] 	 bind ""rctrl"" ""script nadePause()""" );
+	printl( @"[NT] Press the key before every nade you save, all following nades will fly the same path" );
 
-function fSetup() {
-	printl( @"[NT] Введите:" );
-	printl( @"[NT] 	 bind ""любая кнопка"" ""script fSave()""" );
-	printl( @"[NT] 	 bind ""другая любая кнопка"" ""script pScript()""" );
-	printl( @"[NT] Нажмите первую кнопку, для сохранения траектории полета." );
-
-	printl( @"[NT] Подготовка..." );
-	SendToConsole( @"sv_cheats 1" );
-	SendToConsole( @"ent_remove nadeTimer" );
-	SendToConsole( @"ent_create logic_timer" );
-	SendToConsole( @"ent_fire logic_timer addoutput ""targetname nadeTimer""" );
-	SendToConsole( @"ent_fire nadeTimer toggle" );
-	SendToConsole( @"ent_fire nadeTimer addoutput ""refiretime 0.05""" );
-	SendToConsole( @"ent_fire nadeTimer enable" );
-	SendToConsole( @" ent_fire nadeTimer addoutput ""startdisabled 0""" );
-	SendToConsole( @" ent_fire nadeTimer addoutput ""UseRandomTime 0""" );
-	SendToConsole( @" ent_fire nadeTimer addoutput ""ontimer nadeTimer,RunScriptCode,nadeThink()""" );
-	printl( @"[NT] done. You can turn off sv_cheats now." );
+	printl( @"[NT] starting setup..." );
+	if (!Entities.FindByName(null, "nadeTimer"))
+	{
+		local v_nadeTimer = null;
+		v_nadeTimer = Entities.CreateByClassname("logic_timer");
+		EntFireByHandle(v_nadeTimer, "addoutput", "targetname nadeTimer", 0.0, null, null);
+	}
+	EntFire("nadeTimer", "toggle");
+	EntFire("nadeTimer", "addoutput", "refiretime 0.05");
+	EntFire("nadeTimer", "enable" );
+	EntFire("nadeTimer", "addoutput", "startdisabled 0");
+	EntFire("nadeTimer", "addoutput", "UseRandomTime 0");
+	EntFire("nadeTimer", "addoutput", "ontimer nadeTimer,RunScriptCode,nadeThink()");
+	printl( @"[NT] done.");
 }
 
-function fSave() {
+function nadeSavePos() {
 	nadeSaveMode = true;
-	ScriptPrintMessageCenterAll( "Сохранение траектории" );
+	ScriptPrintMessageCenterAll( "Saving next grenade" );
 }
+
 function nadeThink() {
 	local nade = null;
 
-	while ( Entities.FindByClassname(nade, "flashbang_projectile") != null ) {
-		nade = Entities.FindByClassname(nade, "flashbang_projectile");
+    while ((nade = Entities.FindByClassname(nade, "flashbang_projectile")) != null ) {
+        deleteOtherNades( nade );
+        saveRestore( nade );
+    }
+
+	nade = null;
+	while ((nade = Entities.FindByClassname(nade, "hegrenade_projectile")) != null ) {
+        deleteOtherNades( nade );
 		saveRestore( nade );
 	}
-	
-	nade = null;
-	while ( Entities.FindByClassname(nade, "hegrenade_projectile") != null ) {
-		nade = Entities.FindByClassname(nade, "hegrenade_projectile");
+
+    nade = null;
+    while ((nade = Entities.FindByClassname(nade, "incgrenade_projectile")) != null) {
+        deleteOtherNades( nade );
 		saveRestore( nade );
 	}
-	nade = null;
-	while ( Entities.FindByClassname(nade, "smokegrenade_projectile") != null ) {
-		nade = Entities.FindByClassname(nade, "smokegrenade_projectile");
+
+    nade = null;
+    while ((nade = Entities.FindByClassname(nade, "molotov_projectile")) != null) {
+        deleteOtherNades( nade );
 		saveRestore( nade );
 	}
-	nade = null;
-	while ( Entities.FindByClassname(nade, "incgrenade_projectile") != null ) {
-		nade = Entities.FindByClassname(nade, "incgrenade_projectile");
-		saveRestore( nade );
-	}
-	nade = null;
-	while ( Entities.FindByClassname(nade, "molotov_projectile") != null ) {
-		nade = Entities.FindByClassname(nade, "molotov_projectile");
-		saveRestore( nade );
+
+    nade = null;
+    while ((nade = Entities.FindByClassname(nade, "smokegrenade_projectile")) != null) {
+        deleteOtherNades( nade );
+        saveRestore( nade );
 	}
 }
-function pScript()
-{
-	if(isPaused == false)
+
+function nadePause() {
+	nadeIsPaused = !nadeIsPaused;
+	if ( nadeIsPaused )
 	{
-		isPaused = true;
-		ScriptPrintMessageCenterAll( "Скрипт остановлен" );
-	}
-	else 
-	{
-		isPaused = false;
-	ScriptPrintMessageCenterAll( "Скрипт снова работает, пошла новая запись" );
+		ScriptPrintMessageCenterAll( "Pausing script. You can now throw grenades freely." );
+	} else {
+		ScriptPrintMessageCenterAll( "Resuming script. Last saved grenade remembered." );
 	}
 }
+
 function saveRestore( nade ) {
-	if (isPaused == false){	
+	if (!nadeIsPaused){
 		if ( nadeLastNade != nade ) {
 			if ( nadeSaveMode ) {
-				ScriptPrintMessageCenterAll( "Сохранено" );
+				ScriptPrintMessageCenterAll( "Saved" );
 				nadePos = nade.GetCenter();
 				nadeVel = nade.GetVelocity();
 				nadeSaveMode = false;
@@ -101,4 +104,18 @@ function saveRestore( nade ) {
 			nadeLastNade = nade;
 		}
 	}
+}
+
+function deleteOtherNades( nade ){
+    local other = null;
+    if (other == null)
+        other = Entities.FindByClassname(null, "smokegrenade_projectile");
+    if (other == null)
+        other = Entities.FindByClassname(null, "molotov_projectile");
+    if (other == null)
+        other = Entities.FindByClassname(null, "incgrenade_projectile");
+
+    if (other != null && other != nade){
+        other.Destroy();
+    }
 }
