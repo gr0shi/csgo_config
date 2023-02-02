@@ -1,0 +1,311 @@
+// Improved Radio Mod by Maxim - Current Version 2.4
+//
+// 2015-12-14 - Version 1.0:
+// Added Radio, Training and Bot features 
+// 2017-01-02 - Version 2.0-2.3:
+// Re-added Bot Menu for Danger Zone Update, Removed bhop cvars, say from 'Enable Training' & shortened "Need a drop!" to just "Drop"
+// 2022-04-21 - Version 2.4:
+// Replaced round cvars with ignore round condition, restart game with cast ray, clear decals with rethrow last grenade & optimized impact & trajectory.
+
+"RadioPanel.txt"
+{
+
+//"SFUI_StandardRadio"
+//"SFUI_GroupRadio"	
+//"SFUI_ReportRadio"	
+	"Groups"
+	{
+		"common"
+		{
+			"hotkey"	"0"
+			"title"	"Offline Menu"
+			"timeout"	"5"
+
+			"Commands"
+			{
+				"Toggle Noclip"
+				{
+					"hotkey"	"1"
+					"label"	"Toggle Noclip"
+					"cmd"	"sv_cheats 1; noclip"
+				}
+				
+				"Toggle Godmode"
+				{
+					"hotkey"	"2"
+					"label"	"Toggle Godmode"
+					"cmd"	"sv_cheats 1; god"
+				}
+				
+				"Rethrow Last Grenade"
+				{
+					"hotkey"	"3"
+					"label"	"Rethrow Last Grenade"
+					"cmd"	"sv_cheats1; sv_rethrow_last_grenade "
+				}
+				
+				"Cast Ray"
+				{
+					"hotkey"	"4"
+					"label"	"Cast Ray"
+					"cmd"	"sv_cheats 1; cast_ray"
+				}
+				
+				"Draw Brushes (ON)"
+				{
+					"hotkey"	"5"
+					"label"	"Draw Brushes (ON)"
+					"cmd"	"sv_cheats 1; r_drawclipbrushes 2"
+				}	
+				
+				"Draw Brushes (OFF)"
+				{
+					"hotkey"	"6"
+					"label"	"Draw Brushes (OFF)"
+					"cmd"	"r_drawclipbrushes 0"
+				}
+				
+				"Impact & Trajectory (ON)"
+				{
+					"hotkey"	"7"
+					"label"	"Impact & Trajectory (ON)"
+					"cmd"	"sv_cheats 1; say_team Impact & Trajectory (ON); sv_grenade_trajectory 1; sv_grenade_trajectory_dash 1; sv_grenade_trajectory_thickness 0.5; sv_grenade_trajectory_time 8; sv_showimpacts 1; sv_showimpacts_time 5; sv_showimpacts_penetration 1"
+				}
+				
+				"Impact & Trajectory (OFF)"
+				{
+					"hotkey"	"8"
+					"label"	"Impact & Trajectory (OFF)"
+					"cmd"	"say_team Impact & Trajectory (OFF); sv_grenade_trajectory 0; sv_showimpacts 0; sv_showimpacts_time 4; sv_showimpacts_penetration 0"
+				}
+				
+				"Enable Practice"
+				{
+					"hotkey"	"9"
+					"label"	"Enable Practice"
+					"cmd"	"sv_cheats 1; mp_forcecamera 0; mp_solid_teammates 1; mp_limitteams 0; mp_autoteambalance 0; mp_spectators_max 10; mp_ignore_round_win_conditions 1; mp_maxmoney 60000; mp_startmoney 60000; mp_freezetime 0; mp_buytime 9999; mp_buy_anywhere 1; mp_radar_showall 1; sv_infinite_ammo 2; ammo_grenade_limit_total 5; bot_kick; mp_warmup_end; mp_restartgame 1"
+				}
+
+			}
+		}
+
+		"standard"
+		{
+			"hotkey"	"1"
+			"title"	"Bot Menu"
+			"timeout"	"5"
+			
+			"Commands"
+			{
+				"Add Bot (CT)"
+				{
+					"hotkey"	"1"
+					"label"	"Add Bot (CT)"
+					"cmd"	"bot_add_ct"
+				}
+				
+				"Add Bot (T)"
+				{
+					"hotkey"	"2"
+					"label"	"Add Bot (T)"
+					"cmd"	"bot_add_t"
+				}
+				
+				"Bot Place"
+				{
+					"hotkey"	"3"
+					"label"	"Bot Place"
+					"cmd"	"bot_stop 1; bot_place"
+				}
+				
+				"Bot Crouch (ON)"
+				{
+					"hotkey"	"4"
+					"label"	"Bot Crouch (ON)"
+					"cmd"	"bot_crouch 1"
+				}
+				
+				"Bot Crouch (OFF)"
+				{
+					"hotkey"	"5"
+					"label"	"Bot Crouch (OFF)"
+					"cmd"	"bot_crouch 0"
+				}
+				
+				"Bot Mimic (ON)"
+				{
+					"hotkey"	"6"
+					"label"	"Bot Mimic (ON)"
+					"cmd"	"bot_mimic_yaw_offset 0; bot_mimic 1"
+				}
+				
+				"Bot Mimic (OFF)"
+				{
+					"hotkey"	"7"
+					"label"	"Bot Mimic (OFF)"
+					"cmd"	"bot_mimic_yaw_offset 0; bot_mimic 0"
+				}
+				
+				"Stop all bots"
+				{
+					"hotkey"	"8"
+					"label"	"Stop all bots"
+					"cmd"	"bot_stop 1"
+				}
+				
+				"Kick all bots"
+				{
+					"hotkey"	"9"
+					"label"	"Kick all bots"
+					"cmd"	"bot_kick"
+				}
+			}
+		}
+		
+		"group"
+		{
+			"hotkey"	"2"
+			"title"	"Radio Menu"
+			"timeout"	"5"
+			
+			"Commands"
+			{
+				"roger"
+				{
+					"hotkey"	"1"
+					"label"	"Yes"
+					"cmd"	"roger"
+				}
+				
+				"negative"
+				{
+					"hotkey"	"2"
+					"label"	"No"
+					"cmd"	"negative"
+				}
+				
+				"needbackup"
+				{
+					"hotkey"	"3"
+					"label"	"Help"
+					"cmd"	"needbackup"
+				}
+				
+				"hold"
+				{
+					"hotkey"	"4"
+					"label"	"Hold"
+					"cmd"	"holdpos"
+				}
+				
+				"go"
+				{
+					"hotkey"	"5"
+					"label"	"Go"
+					"cmd"	"go"
+				}
+				
+				"thanks"
+				{
+					"hotkey"	"6"
+					"label"	"Thanks"
+					"cmd"	"thanks"
+				}
+
+				"cheer"
+				{
+					"hotkey"	"7"
+					"label"	"Cheer"
+					"cmd"	"cheer"
+				}	
+				
+				"sorry"
+				{
+					"hotkey"	"8"
+					"label"	"Sorry"
+					"cmd"	"say_team Sorry!"
+				}	
+
+				"askfordrop"
+				{
+					"hotkey"	"9"
+					"label"	"Drop"
+					"cmd"	"needbackup; say_team Drop"
+				}
+			}
+		}
+		
+		"report"
+		{
+			"hotkey"	"3"
+			"title"	"Radio Menu"
+			"timeout"	"5"
+			
+			"Commands"
+			{
+				"roger"
+				{
+					"hotkey"	"1"
+					"label"	"Yes"
+					"cmd"	"roger"
+				}
+				
+				"negative"
+				{
+					"hotkey"	"2"
+					"label"	"No"
+					"cmd"	"negative"
+				}
+				
+				"needbackup"
+				{
+					"hotkey"	"3"
+					"label"	"Help"
+					"cmd"	"needbackup"
+				}
+				
+				"sectorclear"
+				{
+					"hotkey"	"4"
+					"label"	"Hold"
+					"cmd"	"holdpos"
+				}
+				
+				"go"
+				{
+					"hotkey"	"5"
+					"label"	"Go"
+					"cmd"	"go"
+				}
+				
+				"thanks"
+				{
+					"hotkey"	"6"
+					"label"	"Thanks"
+					"cmd"	"thanks"
+				}
+
+				"cheer"
+				{
+					"hotkey"	"7"
+					"label"	"Cheer"
+					"cmd"	"cheer"
+				}	
+				
+				"sorry"
+				{
+					"hotkey"	"8"
+					"label"	"Sorry"
+					"cmd"	"say_team Sorry!"
+				}	
+
+				"askfordrop"
+				{
+					"hotkey"	"9"
+					"label"	"Drop"
+					"cmd"	"needbackup; say_team Drop"
+				}	
+			}
+		}
+	}
+}
