@@ -1,5 +1,5 @@
 # My Counter Strike: Global Offensive config
-
+#TODO
 This CS:GO config comes from years of accumulating information from various sources and maintaining it up to date with every game update introducing new features and deprecating others.
 
 ## Attribution and useful resources
