@@ -19,3 +19,5 @@ bind "7" "slot9" //decoy
 bind "m" "slot10" //incendiary
 bind "q" "slot11" //zeus
 bind "h" "slot12" //healtshot
+
+r_ dynamic 0
