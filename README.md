@@ -99,12 +99,11 @@ If your internet bandwidth is less than 6 Mbps (megabits per second) you should 
 
 ### Launch Options
 
-`-tickrate 128 -novid -nojoy -high -exec autoexec +cpu_frequency_monitoring 2 -language colormod`
+`-tickrate 128 -novid -nojoy -exec autoexec +cpu_frequency_monitoring 2 -language colormod`
 
 - `tickrate 128` how many times per second the server calculates stuff. tickrate 128 - highest possible tickrate in CS
 - `novid` to skip the video intro.
 - `nojoy` is required for me since the Panorama update on Linux because I have an Xbox One controller plugged-in at all time and CS:GO crash at launch in this situation. See this [github issue](https://github.com/ValveSoftware/csgo-osx-linux/issues/1801) to learn more.
-- `high` csgo process priority
 - `exec autoexec` used to automatically execute the config
 - `cpu_frequency_monitoring 2` to see if CPU thermal throttling is an issue
 - `language colormod` to enable the BananaGaming's Text Mod.
