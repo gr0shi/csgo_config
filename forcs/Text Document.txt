@@ -1,4 +1,0 @@
-bhop.ahk
-cs.exe 
-nircmd
-vibrancegui
