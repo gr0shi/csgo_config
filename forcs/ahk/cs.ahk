@@ -20,6 +20,7 @@ Process, WaitClose, csgo.exe
 
 Process, close, vibranceGUI.exe
 Process, close, bhop.exe
+Process, close, faceitclient.exe
 Run, %nircmd% changebrightness -50
 SoundSet, 50
 
