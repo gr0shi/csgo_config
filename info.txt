@@ -1,0 +1,29 @@
+r_drawtracers_firstperson // bullet tracers
+bindtoggle "*KEY*" "apply_crosshair_code ***"
+bind "*KEY*" "apply_crosshair_code ***"
+bind ??? +left / +right
+bind ??? sensitivity 10
+bind mouse5 "incrementvar cl_crosshaircolor 1 5 4; incrementvar cl_crosshairsize 1.5 1000 998,5; incrementvar cl_crosshairdot 0 1 1; incrementvar cl_crosshair_drawoutline 0 1 1; incrementvar cl_crosshairalpha 220 255 35; incrementvar cl_crosshairgap -1.5 5 5
+bind f “use weapon_c4; drop”
+
+// there are 2 different flame grenades, on for each team. but i would rebind hotkeys to the slots instead of giving use weapon commands.
+
+bind "1" "slot1"  // pimary
+bind "2" "slot2"  // secondary
+bind "3" "slot3"  // knife
+bind "6" "slot5"  // bomb
+bind "4" "slot6"  // he
+bind "f" "slot7"  // flashbang
+bind "5" "slot8"  // smoke
+bind "7" "slot9"  // decoy
+bind "m" "slot10" // incendiary
+bind "q" "slot11" // zeus
+bind "h" "slot12" // healtshot
+
+r_ dynamic 0
+
+bind "f" "buy flashbang; use weapon_knife; use weapon_flashbang"
+bind "c" "buy smokegrenade; use weapon_knife; use weapon_smokegrenade"
+bind "n" "buy hegrenade; use weapon_knife; use weapon_hegrenade"
+bind "4" "buy incgrenade; buy molotov; use weapon_knife; use weapon_molotov; use weapon_incgrenade"
+bind "h" "buy decoy; use weapon_knife; use weapon_decoy"
