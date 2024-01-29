@@ -6,7 +6,7 @@ bhop := A_ScriptDir . "\\..\\bhop.exe"
 vibrance := A_ScriptDir . "\\..\\vibranceGUI.exe"
 nircmd := A_ScriptDir . "\\..\\nircmd.exe"
 
-; run csgo
+; run cs
 Run, steam://rungameid/730
 
 Process, Wait, csgo.exe

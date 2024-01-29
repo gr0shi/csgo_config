@@ -6,6 +6,10 @@ bind ??? sensitivity 10
 bind mouse5 "incrementvar cl_crosshaircolor 1 5 4; incrementvar cl_crosshairsize 1.5 1000 998,5; incrementvar cl_crosshairdot 0 1 1; incrementvar cl_crosshair_drawoutline 0 1 1; incrementvar cl_crosshairalpha 220 255 35; incrementvar cl_crosshairgap -1.5 5 5
 bind f “use weapon_c4; drop”
 
+Alias clutch mode 223off clutch_mode toggleconsole toggleconsole clutch mode 223on
+Alias clutch mode 223on clutch_mode (discord) clutch mode 223off
+Bind 6 clutch mode233
+
 // there are 2 different flame grenades, on for each team. but i would rebind hotkeys to the slots instead of giving use weapon commands.
 
 bind "1" "slot1"  // pimary
