@@ -2,6 +2,10 @@
 
 This CS:GO config comes from years of accumulating information from various sources and maintaining it up to date with every game update introducing new features and deprecating others.
 
+## Attention!
+
+This config has been revorked for training on maps that wasn't ported to cs2, maps for training are located in csgo_config\cfg\trainingmaps.cfg
+
 ## Attribution and useful resources
 
 This project includes the wonderful Orel's Text Mod and awesome BananaGaming's Color Mod available here: <https://gamebanana.com/gamefiles/3711>, and here: <https://maximhere.me/modifications/>, that will greatly simplify radio messages displayed in the chat.
